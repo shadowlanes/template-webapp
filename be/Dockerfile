@@ -1,4 +1,7 @@
-FROM node:24-slim
+FROM node:24-alpine
+
+# Install system dependencies for Prisma
+RUN apk add --no-cache openssl libc6-compat curl
 
 WORKDIR /app
 
@@ -14,4 +17,4 @@ RUN npm run build
 
 EXPOSE 3001
 
-CMD ["npm", "start"]
+CMD npm run migrate && npm start
